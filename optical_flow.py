@@ -1,5 +1,5 @@
 
-def optical_flow(prev_output, target_features, target_frame, prev_target_frame, target_pos_frame):
+def optical_flow(prev_output, target_features, target_frame, prev_target_frame): # target_pos_frame):
     """
         input:
             prev_output: output from last frame
