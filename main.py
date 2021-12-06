@@ -40,7 +40,7 @@ def main():
                 convexhull, result = face_swap(source_frame, target_frame, feature_source, feature_target, dissolved_pic)
 
                 # STEP 4: Seamless Blending
-                output = blending(result, source_frame, convexhull)
+                output = blending(result, source_frame, convexhull, cv2.MIXED_CLONE)
                 cv2.imshow("Result", output)
 
                 prev_target_frame = target_frame

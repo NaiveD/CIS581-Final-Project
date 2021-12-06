@@ -8,7 +8,7 @@ from utils import laplacian_pyramid, gaussian_pyramid, combine, collapse
 from utils import getIndexes, getCoefficientMatrix, getSolutionVect
 from utils import getSolutionVectTexture, reconstructImg, solveEqu
 
-def blending(result, source_frame, convexhull):
+def blending(result, source_frame, convexhull, method=cv2.NORMAL_CLONE):
     """
     input:
         result: morphing result
