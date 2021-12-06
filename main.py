@@ -46,7 +46,9 @@ def main():
                 prev_target_frame = target_frame
                 needDetection = False
             else:
-                output = optical_flow(output, feature_target, target_frame, prev_target_frame, target_pos_frame)
+                print("this is in the optical flow", target_pos_frame)
+                output, feature_target = optical_flow(output, feature_target, target_frame, prev_target_frame)
+                cv2.imshow("Result", output)
                 prev_target_frame = target_frame
 
         key = cv2.waitKey(1)
