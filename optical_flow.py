@@ -31,12 +31,6 @@ def optical_flow(prev_output, prev_target_features, target_frame, prev_target_fr
     good_new = new_features[st==1]
     good_old = feature_points[st==1]
     
-    new_output = np.copy(prev_output)
-    
-    transform = SimilarityTransform()
-    
-    if transform.estimate(good_old, good_new):
-        new_output = transform_image(good_old, good_new, prev_output, target_frame)
     
     good_new_features = []
     for each in good_new.tolist():
@@ -45,36 +39,4 @@ def optical_flow(prev_output, prev_target_features, target_frame, prev_target_fr
             s.append(each[i])
         good_new_features.append(tuple(s))
 
-    return new_output, good_new_features
-
-def transform_image(good_old, good_new, prev_output, target_frame):
-    warped_img1 = np.copy(target_frame)
-
-    hullIndex = cv2.convexHull(np.array(good_new).astype(np.int32), returnPoints=False)
-    
-    hull1 = [good_old[int(hullIndex[i])] for i in range(0, len(hullIndex))]
-    hull2 = [good_new[int(hullIndex[i])] for i in range(0, len(hullIndex))]
-
-    # hull1, hull2 = convex_hull(points1.tolist(), points2.tolist())
-    hull1 = np.array(hull1).astype(np.float32)
-    hull2 = np.array(hull2).astype(np.float32)
-
-    if (len(hull1) == 0 or len(hull2) == 0):
-        return target_frame
-        
-    hull2 = np.asarray(hull2)
-    hull2[:, 0] = np.clip(hull2[:, 0], 0, target_frame.shape[1] - 1)
-    hull2[:, 1] = np.clip(hull2[:, 1], 0, target_frame.shape[0] - 1)
-    hull2_list = []
-    for each in hull2.astype(np.float32).tolist():
-        s = []
-        for i in range(len(each)):
-            s.append(each[i])
-        hull2_list.append(tuple(s))
-    hull2 = hull2_list
-
-    new_image = ImageMorphingTriangulation(prev_output, target_frame, good_old, good_new)
-    return new_image
-    
-    
-    
+    return good_new_features

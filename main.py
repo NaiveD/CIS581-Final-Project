@@ -59,16 +59,25 @@ def main():
                 print("output size = ", output.shape)
                 writer.write(output) # write the output to the video
 
-                prev_target_frame = target_frame
+                # prev_target_frame = target_frame
+                prev_source_frame = source_frame
+                
                 needDetection = False
                 
-            # else:
-            #     # Perform optical flow
-            #     print("Performing optical flow")
-            #     output, feature_target = optical_flow(output, feature_target, target_frame, prev_target_frame)
-            #     cv2.imshow("Result", output)
-            #     # writer.write(output)
-            #     prev_target_frame = target_frame
+            else:
+                # Perform optical flow
+                print("Performing optical flow")
+                feature_source = optical_flow(output, feature_source, source_frame, prev_source_frame)
+                
+                dissolved_pic = ImageMorphingTriangulation(source_frame, target_frame, feature_source, feature_target)
+                convexhull, result = face_swap(source_frame, target_frame, feature_source, feature_target, dissolved_pic)
+
+                output = blending(result, source_frame, convexhull)
+                
+                cv2.imshow("Result", output)
+                print("output size = ", output.shape)
+                writer.write(output)
+                prev_source_frame = source_frame
         else:
             break
 
