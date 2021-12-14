@@ -5,8 +5,8 @@ from morphing import ImageMorphingTriangulation, face_swap
 from blending import blending
 from optical_flow import optical_flow
 
-video_source = './2.mp4' # MrRobot 640*360
-video_target = './1.mp4' # FrankUnderwood 1280*720
+video_source = './2.mp4' # MrRobot 640*360 
+video_target = './1.mp4' # FrankUnderwood 1280*720 
 
 frame_rate = 5
 needDetection = True
