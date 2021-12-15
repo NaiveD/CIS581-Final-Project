@@ -34,6 +34,9 @@ def main():
         is_source, source_frame = cap_source.read()
         is_target, target_frame = cap_target.read()
 
+        source_gray = cv2.cvtColor(source_frame, cv2.COLOR_BGR2GRAY)
+        target_gray = cv2.cvtColor(target_frame, cv2.COLOR_BGR2GRAY)
+
         if is_source and is_target and (count_frame < num_frame):
             count_frame += 1
             target_pos_frame = cap_target.get(cv2.CAP_PROP_POS_FRAMES)  # index of the current target frame
@@ -44,12 +47,12 @@ def main():
                 print("Performing feature detection")
 
                 # STEP 1: Do detection
-                det_source = detect_faces(source_frame)
-                det_target = detect_faces(target_frame)
+                det_source = detect_faces(source_gray)
+                det_target = detect_faces(target_gray)
 
                 # STEP 2: Extract feature points
-                feature_source = extract_feature(source_frame, det_source)[0]
-                feature_target = extract_feature(target_frame, det_target)[0]
+                feature_source = extract_feature(source_gray, det_source)[0]
+                feature_target = extract_feature(target_gray, det_target)[0]
 
                 # STEP 3: Face Warping
                 dissolved_pic = ImageMorphingTriangulation(source_frame, target_frame, feature_source, feature_target)
