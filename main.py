@@ -34,10 +34,10 @@ def main():
         is_source, source_frame = cap_source.read()
         is_target, target_frame = cap_target.read()
 
-        source_gray = cv2.cvtColor(source_frame, cv2.COLOR_BGR2GRAY)
-        target_gray = cv2.cvtColor(target_frame, cv2.COLOR_BGR2GRAY)
-
         if is_source and is_target and (count_frame < num_frame):
+            source_gray = cv2.cvtColor(source_frame, cv2.COLOR_BGR2GRAY)
+            target_gray = cv2.cvtColor(target_frame, cv2.COLOR_BGR2GRAY)
+            
             count_frame += 1
             target_pos_frame = cap_target.get(cv2.CAP_PROP_POS_FRAMES)  # index of the current target frame
             print("current target frame: %d" % target_pos_frame)
@@ -70,7 +70,15 @@ def main():
 
             else:
                 print("this is in the optical flow", target_pos_frame)
-                output, feature_target = optical_flow(output, feature_target, target_frame, prev_target_frame)
+                # output, feature_target = optical_flow(output, feature_target, target_frame, prev_target_frame)
+                feature_target = optical_flow(output, feature_target, target_frame, prev_target_frame)
+                
+                dissolved_pic = ImageMorphingTriangulation(source_frame, target_frame, feature_source, feature_target)
+                target_convexhull, result = face_swap(source_frame, target_frame, feature_source, feature_target,
+                                                      dissolved_pic)
+                output = blending(result, target_frame, target_convexhull)
+                writer.write(output)  # write the output to the video
+                
                 cv2.imshow("Result", output)
                 prev_target_frame = target_frame
 
