@@ -1,15 +1,27 @@
 import numpy as np
 import cv2
+<<<<<<< HEAD
 from numpy.core.numeric import outer
+=======
+>>>>>>> 9ead27a6ebcbb14d9db5fe1cd2bd0af7cc170b44
 from skimage.transform import SimilarityTransform
 from morphing import *
 from scipy import spatial
 from blending import blending
+<<<<<<< HEAD
 # from warping import *
 
 lk_params = dict( winSize  = (15, 15), 
                   maxLevel = 2, 
                   criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
+=======
+
+
+lk_params = dict(winSize=(15, 15),
+                 maxLevel=2,
+                 criteria=(cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
+
+>>>>>>> 9ead27a6ebcbb14d9db5fe1cd2bd0af7cc170b44
 
 def optical_flow(prev_output, target_features, curr_target_frame, prev_target_frame):
     """
