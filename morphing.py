@@ -37,6 +37,7 @@ def face_swap(frame, frame2, landmarks_pts, landmarks_pts2, dissolved_pic2):
     convexhull2 = cv2.convexHull(pts2)
     cv2.fillConvexPoly(mask2, convexhull2, 255)
 
+    # 把target人脸的位置都圈出来
     face_masked2 = cv2.bitwise_and(dissolved_pic2, dissolved_pic2, mask=mask1)
 
     # Face swapped (place 1st face onto the 2nd face)

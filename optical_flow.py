@@ -1,9 +1,11 @@
 import numpy as np
 import cv2
+from numpy.core.numeric import outer
 from skimage.transform import SimilarityTransform
 from morphing import *
 from scipy import spatial
-from warping import *
+from blending import blending
+# from warping import *
 
 lk_params = dict( winSize  = (15, 15), 
                   maxLevel = 2, 
@@ -59,11 +61,11 @@ def transform_image(prev_feature_points, curr_feature_points, prev_output, curr_
     result_frame = np.copy(curr_target_frame)
     dissolved_pic = ImageMorphingTriangulation(prev_output, curr_target_frame, prev_feature_points, curr_feature_points)
     convexhull, result = face_swap(prev_output, curr_target_frame, prev_feature_points, curr_feature_points, dissolved_pic)
-    
+    output = blending(result, prev_output, convexhull)
     # triangle = spatial.Delaunay(curr_feature_points)
     # tri_list = triangle.simplices
     
     # warping(tri_list, prev_feature_points, curr_feature_points, prev_output, result_frame)
-    return result
+    return output
     
     

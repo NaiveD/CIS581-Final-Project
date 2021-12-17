@@ -5,6 +5,7 @@ from morphing import ImageMorphingTriangulation, face_swap
 from blending import blending
 from optical_flow import optical_flow
 
+# 1 is source, 2 is target
 video_source = './2.mp4'
 video_target = './1.mp4'
 
@@ -44,12 +45,13 @@ def main():
                 cv2.imshow("Result", output)
 
                 prev_target_frame = target_frame
+                prev_source_frame = source_frame
                 needDetection = False
             else:
                 print("this is in the optical flow", target_pos_frame)
-                output, feature_target = optical_flow(output, feature_target, target_frame, prev_target_frame)
+                output, feature_target = optical_flow(output, feature_source, source_frame, prev_source_frame)
                 cv2.imshow("Result", output)
-                prev_target_frame = target_frame
+                prev_source_frame = source_frame
 
         key = cv2.waitKey(1)
         if key == 0:
