@@ -34,10 +34,10 @@ def main():
         is_source, source_frame = cap_source.read()
         is_target, target_frame = cap_target.read()
 
-        source_gray = cv2.cvtColor(source_frame, cv2.COLOR_BGR2GRAY)
-        target_gray = cv2.cvtColor(target_frame, cv2.COLOR_BGR2GRAY)
-
         if is_source and is_target and (count_frame < num_frame):
+            source_gray = cv2.cvtColor(source_frame, cv2.COLOR_BGR2GRAY)
+            target_gray = cv2.cvtColor(target_frame, cv2.COLOR_BGR2GRAY)
+            
             count_frame += 1
             target_pos_frame = cap_target.get(cv2.CAP_PROP_POS_FRAMES)  # index of the current target frame
             print("current target frame: %d" % target_pos_frame)
