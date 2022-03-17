@@ -1,6 +1,6 @@
 # CIS581-Final-Project
 
-Face Swapping in Video
+Face Swapping in Two Videos
 
 Members: Jiaqi Xie, Keyan Zhai, Yu-Chia Shen, Zhi Zheng, Li-Pu Chen
 
